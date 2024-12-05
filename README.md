@@ -136,21 +136,6 @@ from itertools import product
 def xor_bytes(data1, data2):
     return bytes(a ^ b for a, b in zip(data1, data2))
 
-def find_plaintexts(xor_result):
-    valid_chars = list(range(65, 91)) + [32]
-    plaintext1_candidates = []
-    plaintext2_candidates = []
-
-    for plaintext1_candidate in product(valid_chars, repeat=len(xor_result)):
-        plaintext1 = bytes(plaintext1_candidate)
-        plaintext2 = xor_bytes(xor_result, plaintext1)
-        if all(b in valid_chars for b in plaintext2):
-            plaintext1_candidates.append(plaintext1)
-            plaintext2_candidates.append(plaintext2)
-            break
-
-    return plaintext1_candidates, plaintext2_candidates
-
 def clean_byte_string(byte_data):
     cleaned = byte_data.replace(b'\x00', b' ')
     return cleaned.decode('utf-8', errors='ignore')
