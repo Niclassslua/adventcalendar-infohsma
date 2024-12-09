@@ -165,4 +165,65 @@ if __name__ == "__main__":
 
 ```
 
+---
 
+## day 6:
+
+//
+
+---
+
+## day 7:
+
+//
+
+---
+
+## day 8:
+
+![{73D1F291-DED2-4432-A0F9-B5D791CEB775}](https://github.com/user-attachments/assets/4318242d-6908-4aac-a207-6974ce143514)
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kerzenkreis</title>
+    <style>
+        body { font-family: Arial; text-align: center; }
+        .circle { position: relative; width: 300px; height: 300px; margin: auto; }
+        .candle { position: absolute; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .lit { background: #ffc107; }
+    </style>
+</head>
+<body>
+<h1>Kerzenkreis</h1>
+<div id="circle" class="circle"></div>
+<div id="info"></div>
+<button id="next">Weiter</button>
+<script>
+    const total = 24, candles = Array(total).fill(0); let current = 1, day = 1; candles[current] = 1;
+    const circle = document.getElementById("circle"), angle = 2 * Math.PI / total;
+    [...Array(total)].forEach((_, i) => {
+        const c = document.createElement("div");
+        c.className = "candle"; c.style.left = `${140 + 120 * Math.cos(i * angle)}px`;
+        c.style.top = `${140 + 120 * Math.sin(i * angle)}px`; c.textContent = i + 1; circle.appendChild(c);
+    });
+    const update = () => {
+        document.querySelectorAll(".candle").forEach((c, i) => c.classList.toggle("lit", candles[i]));
+        document.getElementById("info").textContent = `Tag ${day}: Kerze ${current + 1}`;
+    };
+    document.getElementById("next").onclick = () => {
+        if (day >= total) return;
+        let skip = 0; while (skip < 2) current = (current + 1) % total, skip += !candles[current];
+        candles[current] = 1; day++; update();
+    };
+    update();
+</script>
+</body>
+</html>
+```
+
+---
